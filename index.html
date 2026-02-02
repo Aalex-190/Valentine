@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+font-size: 18px;
+border: none;
+border-radius: 999px;
+cursor: pointer;
+transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+
+button:hover {
+transform: scale(1.05);
+box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+
+#yes {
+background: #ff4d6d;
+color: white;
+position: absolute;
+left: 50%;
+top: 20px;
+transform: translateX(-50%);
+}
+
+
+#no {
+background: #adb5bd;
+color: white;
+position: absolute;
+left: 50%;
+top: 80px;
+transform: translateX(-50%);
+}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>Would you be my Valentine? ❤️</h1>
+<div class="buttons">
+<button id="yes" onclick="yesClicked()">Yes</button>
+<button id="no">No</button>
+</div>
+</div>
+
+
+<script>
+const noBtn = document.getElementById('no');
+const yesBtn = document.getElementById('yes');
+const container = document.querySelector('.buttons');
+
+
+function moveNoButton() {
+const containerRect = container.getBoundingClientRect();
+const yesRect = yesBtn.getBoundingClientRect();
+const noRect = noBtn.getBoundingClientRect();
+
+
+const padding = 10;
+
+
+// Horizontal range
+const minX = padding;
+const maxX = containerRect.width - noRect.width - padding;
+
+
+// Vertical range: must stay BELOW the Yes button
+const minY = yesRect.bottom - containerRect.top + 10;
+const maxY = containerRect.height - noRect.height - padding;
+
+
+const randomX = Math.random() * (maxX - minX) + minX;
+const randomY = Math.random() * (maxY - minY) + minY;
+
+
+noBtn.style.left = `${randomX}px`;
+noBtn.style.top = `${randomY}px`;
+}
+
+
+noBtn.addEventListener('mouseenter', moveNoButton);
+noBtn.addEventListener('mousemove', moveNoButton);
+
+
+function yesClicked() {
+document.querySelector('.card').innerHTML = `
+<h1>Yay!! 💖</h1>
+<p style="font-size: 18px;">You just made my day 🥰</p>
+`;
+}
+</script>
+</body>
+</html>
